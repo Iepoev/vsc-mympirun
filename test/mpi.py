@@ -36,10 +36,18 @@ import pkgutil
 import sys
 
 from vsc.utils.run import run_simple
+
+print("syspath0 %s" % sorted([(k,getattr(v,'__file__', getattr(v, '__path__', None))) for k,v in sys.modules.items() if k.startswith('vsc') ]))
+
+
 from vsc.mympirun.factory import getinstance
+
+print("syspath1 %s" % sorted([(k,getattr(v,'__file__', getattr(v, '__path__', None))) for k,v in sys.modules.items() if k.startswith('vsc') ]))
 
 import vsc.mympirun.mpi as m
 import vsc.mympirun.mpi.mpi as mpim
+
+print("syspath2 %s" % sorted([(k,getattr(v,'__file__', getattr(v, '__path__', None))) for k,v in sys.modules.items() if k.startswith('vsc') ]))
 
 print("mpi_path %s mpim_file %s , listdir_map%s" % (m.__path__, mpim.__file__, map(os.listdir,m.__path__)))
 
