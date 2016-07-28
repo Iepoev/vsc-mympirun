@@ -37,8 +37,8 @@ import pkgutil
 from vsc.utils.run import run_simple
 from vsc.mympirun.factory import getinstance
 
-import vsc.mympirun.mpi.mpi as mpim
 import vsc.mympirun.mpi as m
+import vsc.mympirun.mpi.mpi as mpim
 
 print("mpi_path %s mpim_file %s" % (m.__path__, mpim.__file__))
 
