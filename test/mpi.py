@@ -50,12 +50,17 @@ class TestMPI(unittest.TestCase):
 
     """tests for vsc.mympirun.mpi.mpi functions"""
 
+    def test_version(self):
+        print("mpim_file %s" % mpim.__file__)
+        print("list dir %s" % os.listdir("/var/lib/jenkins/.vsc/lib/python/"))
+
     #######################
     ## General functions ##
     #######################
 
     def test_what_mpi(self):
         """test if what_mpi returns the correct mpi flavor"""
+
         scriptnames = ["ompirun", "mpirun", "impirun", "mympirun"]
         for scriptname in scriptnames:
             # if the scriptname is an executable located on this machine
@@ -63,7 +68,7 @@ class TestMPI(unittest.TestCase):
                 (returned_scriptname, mpi, found) = mpim.what_mpi(scriptname)
                 print("%s, %s, %s" % (returned_scriptname, mpi, found))
                 import vsc.mympirun.mpi as m
-                print("mpi_path %s mpi %s" % (m.__path__, mpim.__file__))
+                print("mpi_path %s mpim_file %s" % (m.__path__, mpim.__file__))
                 # if an mpi implementation was found
                 if mpi:
                     self.assertTrue(mpi in found, msg="returned mpi (%s) is not an element of found_mpi (%s)" % (mpi, found))
