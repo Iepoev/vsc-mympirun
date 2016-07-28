@@ -32,6 +32,7 @@ import stat
 import unittest
 import re
 import string
+import pkgutil
 
 from vsc.utils.run import run_simple
 from vsc.mympirun.factory import getinstance
@@ -54,6 +55,12 @@ class TestMPI(unittest.TestCase):
         print("mpim_file %s" % mpim.__file__)
         print("list dir %s" % os.listdir("/var/lib/jenkins/.vsc/lib/python/"))
 
+        for loader, modulename, _ in pkgutil.walk_packages([mpim.__file__]):
+            loader.find_module(modulename).load_module(modulename)
+
+        import vsc.mympirun.mpi as m
+        print("mpi_path %s mpim_file %s" % (m.__path__, mpim.__file__))
+
     #######################
     ## General functions ##
     #######################
@@ -67,8 +74,6 @@ class TestMPI(unittest.TestCase):
             if mpim.which(scriptname):
                 (returned_scriptname, mpi, found) = mpim.what_mpi(scriptname)
                 print("%s, %s, %s" % (returned_scriptname, mpi, found))
-                import vsc.mympirun.mpi as m
-                print("mpi_path %s mpim_file %s" % (m.__path__, mpim.__file__))
                 # if an mpi implementation was found
                 if mpi:
                     self.assertTrue(mpi in found, msg="returned mpi (%s) is not an element of found_mpi (%s)" % (mpi, found))
