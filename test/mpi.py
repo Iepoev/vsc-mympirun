@@ -33,6 +33,7 @@ import unittest
 import re
 import string
 import pkgutil
+import sys
 
 from vsc.utils.run import run_simple
 from vsc.mympirun.factory import getinstance
@@ -40,7 +41,8 @@ from vsc.mympirun.factory import getinstance
 import vsc.mympirun.mpi as m
 import vsc.mympirun.mpi.mpi as mpim
 
-print("mpi_path %s mpim_file %s" % (m.__path__, mpim.__file__))
+print("mpi_path %s mpim_file %s , listdir_map%s" % (m.__path__, mpim.__file__, map(os.listdir,m.__path__))
+
 
 # from vsc.mympirun.mpi.openmpi import OpenMPI
 # from vsc.mympirun.mpi.intelmpi import IntelMPI
